@@ -3,7 +3,6 @@ main{
     align-items: center;
     margin-top:50px;
     row-gap: 70px;
-
     & .primary-category{
         max-width: 2100px;
         @include flexy($dir:row,$just:space-between);
@@ -14,8 +13,7 @@ main{
             width: 30px;
             border:none;
             background-color: white;
-         
-            color:   rgb(46, 245, 245);
+            color:rgb(46, 245, 245);
             cursor: pointer;
         }
     }

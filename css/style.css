@@ -526,7 +526,6 @@ header .aside-section {
   min-height: 600px;
   max-height: 600px;
   max-width: 1920px;
-  border: 1px solid green;
 }
 header .aside-section img {
   min-width: 100%;
@@ -726,6 +725,84 @@ main .container-products .product .buttons-product i:hover {
   opacity: 1;
   opacity: var(--opacity-span);
   transition: 0.5s all ease-in-out;
+}
+
+.register {
+  text-align: center;
+  width: 95%;
+  margin: auto;
+  max-width: 1920px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.register input {
+  height: 40px;
+}
+.register ::-webkit-input-placeholder {
+  padding-left: 10px;
+}
+.register .create-account {
+  background-color: #02b887;
+  color: white;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.register p {
+  font-size: 1.5em;
+}
+.register p span {
+  color: #02b887;
+  cursor: pointer;
+}
+
+.login {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 1920PX;
+  row-gap: 20px;
+}
+.login input {
+  height: 40px;
+}
+.login ::-webkit-input-placeholder {
+  padding-left: 10px;
+}
+.login button {
+  background-color: #02b887;
+  color: white;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.login p {
+  font-size: 1.5em;
+  text-align: center;
+}
+.login p span {
+  color: #02b887;
+  cursor: pointer;
+}
+
+.container-product-cart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  row-gap: 20px;
+}
+.container-product-cart .product-cart-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-top: 1px solid black;
+  padding-top: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

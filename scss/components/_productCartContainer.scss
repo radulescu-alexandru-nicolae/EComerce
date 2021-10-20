@@ -1,0 +1,14 @@
+.container-product-cart{
+    width: 100%;
+    @include flexy($dir:column);
+    width: 80%;
+    margin:auto;
+    row-gap: 20px;;
+    & .product-cart-main{
+        @include flexy($dir:row);
+        align-items: center;
+        border-top:1px solid black;
+        padding-top:20px;
+        
+    }
+}

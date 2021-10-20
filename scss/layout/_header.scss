@@ -4,7 +4,6 @@ header{
         margin:0;
         list-style: none;
     }
-
     & aside{
         @include flexy($dir:column);
         align-items: center;
@@ -16,18 +15,14 @@ header{
             min-height: 600px;
            max-height: 600px;
            max-width: 1920px;
-           border:1px solid green;
            & img{
-              
                min-width: 100%;
                max-width: 100%;
                min-height: 100%;
                max-height: 100%;
                position:absolute;
                top:0;
-            
             opacity: 0;
-      
            }
            & ul{
                position:absolute;
@@ -50,39 +45,6 @@ header{
                }
            }
     }
-
-
-//     & .product-type{
-//         & ol{
-//             list-style: none;
-//             @include flexy($dir:row);
-//             align-items: center;
-//             column-gap: 20px;
-//             padding:0;
-//             margin:0;
-//             width: 170px;
-//             text-transform: uppercase;
-//             margin-top:20px;
-//             margin-left: 0.5em;;
-
-//             & .fa-chevron-right{
-//             display: none;
-//             }
-            
-
-//             & li{
-//                 display:none;
-
-//                 &:first-child{
-//                     display:unset;
-//                 }
-//                 &:last-child{
-//                     display: unset;
-//                 }
-//             }
-//         }
-//     }
-// }
 @keyframes fade {
     0% {
       opacity:0;
