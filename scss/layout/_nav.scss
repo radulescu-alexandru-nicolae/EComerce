@@ -1,0 +1,177 @@
+nav{
+    background-color: rgb(54, 54, 54);
+    color:white;
+    & .container-nav{
+        position:relative;
+        height: 70px;
+        @include flexy($dir:row,$just:space-between);
+     
+        align-items: center;
+        & h2{
+            margin-left:0.8em;
+        }
+      
+        & ul{
+            position:absolute;
+            padding:0;
+            margin:0;
+            right:0;
+            top:100%;
+            max-width: 500px;
+            transform:translateY(-100%);
+            opacity:0;
+            z-index:-1;
+          transition:0.5s all ease-in-out;
+            width: 30%;
+            background-color: rgb(54, 54, 54);
+    
+            & .down{
+                display:none;
+            }
+    
+            & li{
+                list-style: none;
+                @include flexy($dir:row,$just:center);
+                align-items: center;
+                column-gap: 10px;
+                text-transform: uppercase;
+    
+    
+             
+            }
+            & .cart{
+                background-color:rgb(46, 245, 245);
+                  @include flexy($just:center);
+                }
+    
+    
+    
+                & .cart-products{
+                    display: none;
+                   
+                }
+              
+    }
+  
+    }
+
+    @include mq('lg'){
+      & .container-nav{
+          margin:auto;
+          max-width: 2000px;
+        & .meniu{
+            display: none;  
+        
+        }
+
+        & ul{
+            position:unset;
+            @include flexy($dir:row,$just:space-between);
+            height: 100%;
+            opacity:1;
+            transform:translateY(0);
+            z-index: 1;
+            margin-right: 2em;
+            & .down{
+                display:unset;
+                position:absolute;
+                bottom:5px;
+            }
+            & li{
+                padding:0px 10px 0px 10px;
+                cursor: pointer;
+                transition:0.5s all ease-in-out;
+                position:relative;    
+            }
+            & .cart-products{
+                background-color: white;
+                opacity:0;
+                z-index:-1;
+                position:absolute;
+            display: flex;
+            flex-direction: column;
+            max-height: 400px;
+            max-width:300px;
+            min-width:300px;
+                top:100%;
+                right:0;
+                overflow: scroll;
+                border:1px solid rgb(134, 134, 134);
+            
+                box-shadow:    5px -2px 9px 0px rgba(0,0,0,0.21) ;
+                border-radius: 5px;
+
+                & article{
+                    border-top: 1px solid black;
+                    padding-top:20px;
+                    padding-bottom: 20px;
+                    color:black;
+                    text-transform: lowercase;
+                    @include flexy($dir:row,$just:space-between);
+                    column-gap: 14px;
+                    transition:0.5s all ease-in-out;
+                    line-height: 15px;
+                    & img{
+                        width: 30%;
+                        margin-left:0.5em;
+                        border:1px solid black;
+                    }
+                    position:relative;
+                    & .delete-produs{
+                      
+                        position: absolute;
+                        background-color: white;
+                        padding:10px;
+                        font-size: 20px;
+                        right:10px;
+                        bottom:-10px;
+                        opacity:0;
+                        border-radius: 5px;
+                        transition: 0.5s all ease-in-out;
+                        &:hover{
+                            color:rgb(9, 139, 139);
+                        }
+                      
+                    }
+                    &:hover{
+                        background-color: rgb(231, 229, 229);
+                        & .delete-produs{
+                            opacity:1;
+                        }
+                    }
+                    & .delete-produs:hover{
+                        background-color: red;
+                        color:white;
+                    }
+                    & .price{
+                        color:rgb(9, 139, 139);
+                        font-size: 25px;
+                        margin-right: 0.5em;
+                        margin-top:2em;
+                    }
+                }
+    
+            }
+
+
+        }
+      }
+      
+    }
+  ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgb(255, 255, 255);
+        background-color: transparent;
+        opacity:0;
+    }
+    
+  ::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+    }
+    
+   ::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+    
+    }
+   
+}
