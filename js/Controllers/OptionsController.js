@@ -18,12 +18,7 @@ export default class OptionsController{
     }
 
     create=(option_name)=>{
-        let id;
-        if(this.options[this.options.length-1]===undefined){
-            id=0;
-        }else{
-            id=this.options[this.options.length-1].id+1;
-        }
+      
 
         let option=new Options(option_name);
         this.options.push(option);
@@ -43,7 +38,15 @@ export default class OptionsController{
     }
 
 
-
+nextId=()=>{
+    let id;
+    if(this.options[this.options.length-1]===undefined){
+        id=0;
+    }else{
+        id=this.options[this.options.length-1].id+1;
+    }
+    return id;
+}
 
 
 }

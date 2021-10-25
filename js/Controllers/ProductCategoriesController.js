@@ -19,15 +19,10 @@ export default class ProductCategoriesController{
             })
         }
     }
-    create=(product_id,category_id)=>{
-        let id;
-        if(this.productCategories[this.productCategories.length-1]===undefined){
-            id=0;
-        }else{
-            id=this.productCategories[this.productCategories-1].id +1;
-        }
-        let product=new ProductCategories(id,product_id,category_id);
-        this.productCategories.push(product);
+    create=(productObj)=>{
+     
+        let produs=new ProductCategories(this.nextId(),productObj.id,productObj.category_id);
+        this.productCategories.push(produs);
         window.localStorage.setItem("ProductCategories",JSON.stringify(this.productCategories));
     }
 
@@ -39,6 +34,16 @@ export default class ProductCategoriesController{
         })
         window.localStorage.removeItem("ProductCategories");
         window.localStorage.setItem("ProductCategories",JSON.stringify(this.productCategories));
+    }
+
+    nextId=()=>{
+        let id;
+        if(this.productCategories[this.productCategories.length-1]===undefined){
+            id=0;
+        }else{
+            id=this.productCategories[this.productCategories-1].id +1;
+        }
+        return id;
     }
 }
 

@@ -7,13 +7,7 @@ export default class OrderDetailsController{
 
 
     create=(order_id,product_id,price,sku,quantity)=>{
-        let id;
-        if(this.orders[this.orders.length-1]===undefined){
-            id=0;
-        }else{
-            id=this.orders[this.orders.length-1].id+1;
-        }
-        let order=new OrderDetails(id,order_id,product_id,price,sku,quantity);
+        let order=new OrderDetails(this.nextId(),order_id,product_id,price,sku,quantity);
         this.orders.push(order);
         window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
 
@@ -57,5 +51,35 @@ export default class OrderDetailsController{
             window.localStorage.removeItem("OrderDetails");
             window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
 
+    }
+
+
+    nextId=()=>{
+        let id;
+        if(this.orders[this.orders.length-1]===undefined){
+            id=0;
+        }else{
+            id=this.orders[this.orders.length-1].id+1;
+        }
+        return id;
+    }
+
+    informationOrderDetail=(id)=>{
+        let details=[];
+        this.orders.forEach(e=>{
+            if(e.id===id){
+
+                details.push(e.id);
+                details.push(e.order_id);
+                details.push(e.product_id);
+                details.push(e.price);
+                details.push(e.sku);
+                details.push(e.quantity);
+                
+
+            }
+
+        })
+        return details;
     }
 }

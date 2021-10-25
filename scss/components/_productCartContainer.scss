@@ -5,10 +5,23 @@
     margin:auto;
     row-gap: 20px;;
     & .product-cart-main{
+        position:relative;
         @include flexy($dir:row);
         align-items: center;
         border-top:1px solid black;
         padding-top:20px;
-        
+        & div{
+            margin-left:120px;
+            font-size: 25px;
+            
+        }
+        & .price{
+            position:absolute;
+            bottom:-30px;
+            left: 320px;
+            font-size: 30px;;
+
+        }
+           
     }
 }

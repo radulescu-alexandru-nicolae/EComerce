@@ -13,30 +13,19 @@ class Product{
     }
     toCard=()=>{
         let text=`
-        <article class="card">
-                        <section class="dimon-shape">
-                        <section class="price">$${this.price}</section>
-                    </section>
-                        <section class="photo">
-                            <img src="/img/unnamed.gif" alt="">
-                        </section>
+        <article class="product">
+        <img src="${this.image}" alt="">
+        <article class="product-detail">
+        <p class="denumire">${this.name}</p>
+        <p class="descriere">${this.descriptions}</p>
+        </article>
+        <article class="buttons-product">
+            <i class="fas fa-shopping-cart"></i>
+            <i class="far fa-heart"></i>
+        </article>
 
-                        <section class="text">
-                            <article class="item-name">
-                                <h2>${this.name}</h2>
-                            </article>
-                            <article class="sku">SKU | ${this.sku}</article>
-                        </section>
-                        <section class="view-more">
-                            <article class="view">Viw More <span class="element">+</span></article>
-                            <article class="text-more">
-                                <p><span>Name:</span>${this.name}</p>
-                                <p><span>SKU:</span>${this.sku}</p>
-                                <p><span>Price:</span>${this.price}</p>
-                                <p><span>Description:</span>${this.descriptions}</p>
-                            </article>
-                        </section>
-                    </article>
+
+    </article>
       `
         return text;
     }

@@ -1,3 +1,7 @@
+import Home from "./Home.js";
+import Login from "./Login.js";
+import Register from "./Register.js";
+
 export default class Cart{
     constructor(){
         this.container=document.querySelector('.container');
@@ -7,8 +11,6 @@ export default class Cart{
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
     }
-
-
 
     setHeader=()=>{
         const header=document.createElement('header');
@@ -165,7 +167,6 @@ export default class Cart{
         this.container.appendChild(main);
     }
     handleClickNav=(e)=>{
-        console.log(e.target);
          let obj=e.target;
          if(obj.classList.contains("homeButton")){
             let home=new Home();

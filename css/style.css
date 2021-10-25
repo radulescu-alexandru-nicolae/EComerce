@@ -798,11 +798,22 @@ main .container-products .product .buttons-product i:hover {
   row-gap: 20px;
 }
 .container-product-cart .product-cart-main {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   border-top: 1px solid black;
   padding-top: 20px;
+}
+.container-product-cart .product-cart-main div {
+  margin-left: 120px;
+  font-size: 25px;
+}
+.container-product-cart .product-cart-main .price {
+  position: absolute;
+  bottom: -30px;
+  left: 320px;
+  font-size: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

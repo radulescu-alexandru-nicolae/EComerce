@@ -7,14 +7,8 @@ export default class CustomerController{
     afisare=()=>{
         this.customers.forEach(e=>e.afisare());
     }
-    create=(email,password,full_name,shipping_addres,country,phone)=>{
-        let id;
-        if(this.customers[this.customers.length-1]===undefined){
-            id=0;
-          }else{
-              id=this.customers[this.customers.length-1].id+1;
-          }
-          let custom=new Customers(id,email,password,full_name,shipping_addres,country,phone);
+    create=(customer)=>{
+          let custom=new Customers(this.nextId(),customer.email,customer.password,customer.full_name,customer.shipping_addres,customer.country,customer.phone);
           if(this.checkEmail(custom.email)===false){
               this.customers.push(custom);
               window.localStorage.setItem("account",JSON.stringify(this.customers));
@@ -70,5 +64,15 @@ export default class CustomerController{
             return false;
         }
     
+    }
+
+    nextId=()=>{
+        let id;
+        if(this.customers[this.customers.length-1]===undefined){
+            id=0;
+          }else{
+              id=this.customers[this.customers.length-1].id+1;
+          }
+          return id;
     }
 }

@@ -8,6 +8,5 @@ class Customers{
         this.country=country;
         this.phone=phone;
     }
-
 }
 export default Customers;

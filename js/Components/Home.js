@@ -1,9 +1,22 @@
+import Product from "../class/Product.js";
 import Cart from "./Cart.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
 
+import Customers from "../class/Customers.js";
+import OrdersController from "../Controllers/OrdersController.js";
+import ProductCategoriesController from "../Controllers/ProductCategoriesController.js";
+import OrdersDetailController from "../Controllers/OrderDetailsController.js";
+import CategoriesController from "../Controllers/CategoriesController.js";
+import OptionsController from "../Controllers/OptionsController.js";
+import ProductController from "../Controllers/ProductController.js";
+import Orders from "../class/Orders.js";
+import OrderDetails from "../class/OrderDetails.js";
 export default class Home{
-    constructor(){
+   
+    constructor(customer={} ,order={}){
+        this.customer=customer;
+
         this.produse=JSON.parse(localStorage.getItem('product'));
         this.container=document.querySelector('.container');
         this.container.innerHTML=``;
@@ -14,6 +27,29 @@ export default class Home{
        this.scroll();
        this.navFunction();
        this.asideFunction();
+        this.addCos();
+        this.containerProduse=document.querySelector('.container-products');
+    
+        this.controlOrders = new OrdersController();
+
+         this.productCategoriesController=new ProductCategoriesController();
+
+         this.orderDetailsController=new OrdersDetailController();
+
+
+
+         this.optionsController=new OptionsController();
+
+         this.productController=new ProductController();
+
+
+         this.order=order;
+
+
+         this.controlOrders.create(this.order);
+         this.containerProduse.addEventListener("click",this.addCos);
+         
+       
     }
     setHeader=()=>{
         const header=document.createElement('header');
@@ -37,79 +73,7 @@ export default class Home{
                     <i class="fas fa-arrow-down down"></i>
 
                  <section class="cart-products">
-                      <article class="product-cart">
-                            <img src="/images/buy-1.jpg" alt="">
-                            <div class="div-cart">
-                            <p>Tricou Barbati</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        </div>
-                        <p class="price">30$</p>
-                        <p class="delete-produs">X</p>
-
-                    </article>
-                     
-                    <article class="product-cart">
-                        <img src="/images/buy-1.jpg" alt="">
-                        <div class="div-cart">
-                        <p>Tricou Barbati</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <p class="price">30$</p>
-                    <p class="delete-produs">X</p>
-
-                </article>
-                <article class="product-cart">
-                    <img src="/images/buy-1.jpg" alt="">
-                    <div class="div-cart">
-                    <p>Tricou Barbati</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <p class="price">30$</p>
-                <p class="delete-produs">X</p>
-
-            </article>
-            <article class="product-cart">
-                <img src="/images/buy-1.jpg" alt="">
-                <div class="div-cart">
-                <p>Tricou Barbati</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <p class="price">30$</p>
-            <p class="delete-produs">X</p>
-
-        </article>
-        <article class="product-cart">
-            <img src="/images/buy-1.jpg" alt="">
-            <div class="div-cart">
-            <p>Tricou Barbati</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        </div>
-        <p class="price">30$</p>
-        <p class="delete-produs">X</p>
-
-    </article>
-    <article class="product-cart">
-        <img src="/images/buy-1.jpg" alt="">
-        <div class="div-cart">
-        <p>Tricou Barbati</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    </div>
-    <p class="price">30$</p>
-    <p class="delete-produs">X</p>
-
-</article>
-
-                    <article class="product-cart">
-                        <img src="/images/buy-1.jpg" alt="">
-                        <div class="div-cart">
-                        <p>Tricou Barbati</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <p class="price">30$</p>
-                    <p class="delete-produs">X</p>
-
-                </article>
-                 
+                    
                  </section>
                 </li>
                
@@ -144,445 +108,68 @@ export default class Home{
         `
         this.container.appendChild(header);
 
+
+
+        const cartProducts=document.querySelector('.cart-products');
+
+
+
+        
+
     }
 
     setMain=()=>{
         const main=document.createElement('main');
-        main.innerHTML=`
+        const menCategory=document.createElement('section');
+        const containerProduse=document.createElement('section');
+        containerProduse.className='container-products';
+        menCategory.className='men-category primary-category';
+        const buttonLeft=document.createElement('button');
+        buttonLeft.className='left';
+        const buttonRight=document.createElement('button');
+        buttonRight.className='right';
+        const right=document.createElement('i');
+        right.className='fas fa-chevron-right right';
+        buttonRight.appendChild(right);
 
-    
-            <section class="container-products">
-                <section class="men-category primary-category">
-                    <button class="left"><i class="fas fa-chevron-left left"></i></button>
-                    <section class="men-product sectiune-product">
-    
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-    
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-    
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/buy-1.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                    </section>
-                    <button class="right"><i class="fas fa-chevron-right" id="right"></i></button>
-                </section>
-                <section class="women-category primary-category">
-                    <button class="left"><i class="fas fa-chevron-left left"></i></button>
-                    <section class="women-product sectiune-product">
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-        
-        
-                        </article>
-                        <article class="product">
-                            <img src="images/category-3.jpg" alt="">
-                            <article class="product-detail">
-                            <p class="denumire">Tricou Barbati S</p>
-                            <p class="descriere">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officiis ex est corrupti provident</p>
-                            </article>
-                            <article class="buttons-product">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="far fa-heart"></i>
-                            </article>
-                        </article>
-                    </section>
-                    <button class="right"><i class="fas fa-chevron-right" id="right"></i></button>
-               
-                </section>
-            </section>
-        
-        `;
+        const left=document.createElement('i');
+        left.className='fas fa-chevron-left left';
+        buttonLeft.appendChild(left);
+        const menProduct=document.createElement('section');
+        menProduct.className='men-product sectiune-product';
+
+        //women start here
+        const womenCategory=document.createElement('section');
+        womenCategory.className='women-category primary-category';
+        const womenProduct=document.createElement('section');
+        womenProduct.className='women-product sectiune-product';
+
+      
+        this.produse.forEach(e=>{
+            const produs=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
+                if(produs.category==='Male'){
+                    menProduct.innerHTML+=`
+                   ${produs.toCard()}
+                   `
+                }else if(produs.category==='Female'){
+                    
+                    womenProduct.innerHTML+=
+                    `
+                    ${produs.toCard()}
+                    `
+                }
+          })
+          womenCategory.appendChild(buttonLeft);
+          womenCategory.appendChild(womenProduct);
+          womenCategory.appendChild(buttonRight);
+
+        menCategory.appendChild(buttonLeft);
+        menCategory.appendChild(menProduct);
+         menCategory.appendChild(buttonRight);
+       
+        containerProduse.appendChild(menCategory);
+        containerProduse.appendChild(womenCategory);
+        main.appendChild(containerProduse);
         this.container.appendChild(main);
     }
 
@@ -612,10 +199,10 @@ export default class Home{
             }else{
                 parent.scrollLeft-=900;
             }
-        }else if(e.target.tagName==='I'){
+        }else if(e.target.tagName==='I'&&e.target.className!=='fas fa-shopping-cart'){
             const parent=e.target.parentNode.parentNode.querySelector('.sectiune-product');
             if(e.target.className==='fa-chevron-right'){
-                            parent.scrollLeft+=900;
+                      parent.scrollLeft+=900;
                         }else{
                             parent.scrollLeft-=900;
                         }
@@ -666,7 +253,7 @@ export default class Home{
         cart.addEventListener('mouseout',displayOff);
         const cartProducts=document.querySelector('.cart-products');
         cartProducts.addEventListener('mouseout',displayOff);
-        function displayOn(e){
+        function displayOn(){
           
             cartProducts.style.opacity="1";
             cartProducts.style.zIndex="100";
@@ -702,4 +289,48 @@ export default class Home{
             }
         }
      }
+
+     addCos=(event)=>{
+
+        if(event){
+     
+            let obj=event.target;
+
+            if(obj.classList.contains("fa-shopping-cart")){
+
+               const denumire=obj.parentNode.parentNode.querySelector('.denumire');
+           
+                const produs=this.returnObject(denumire.innerHTML);
+              
+                const details=new OrderDetails
+                (this.orderDetailsController.nextId,
+                    this.order.id,produs.id,produs.price,1,produs.image,produs.name);
+                
+                this.orderDetailsController.create(details);
+
+            }
+        
+        }
+        
+        
+
+     }
+
+
+     returnObject=(element)=>{
+        let gasit;
+        
+       this.productController.products.forEach(e=>{
+        const produs=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
+           if(produs.name===element){
+           
+            gasit=produs;
+           
+
+           }
+       })
+       return gasit;
+
+     }
+
 }

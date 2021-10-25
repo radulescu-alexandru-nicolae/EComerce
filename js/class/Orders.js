@@ -10,10 +10,6 @@ class Orders{
     this.order_date=order_date;
     this.order_status=order_status;
 }
-
-
-
-
 }
 
 export default Orders;

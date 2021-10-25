@@ -1,10 +1,17 @@
+
+import Orders from "../class/Orders.js";
 export default class OrdersController{
 
     constructor(){
         this.orders=[];
         this.load();
+        this.nextId();
+  
+
     }
-load=()=>{
+    load=()=>{
+       
+
     let obj=JSON.parse(localStorage.getItem("order"));
     if(obj!==null){
         obj.forEach(e=>{
@@ -15,15 +22,9 @@ load=()=>{
         })
     }
 }
-    create=(customer_id,ammount,shopping_address,order_address,order_email,order_date,order_status)=>{
-        let id;
-        if(this.orders[this.orders.length-1]===undefined){
-            id=0;
-        }else{
-            id=this.orders[this.orders.length-1].id+1;
-         }
-                let order=new Orders(id,customer_id,ammount,shopping_address,order_address,order_email,order_date,order_status);
-                this.orders.push(order);
+    create=(order)=>{
+                let orderObj=new Orders(this.nextId(),order.customer_id,order.ammount,order.shopping_address,order.order_address,order.order_email,order.order_date,order.order_status);
+                this.orders.push(orderObj);
                 window.localStorage.setItem("order",JSON.stringify(this.orders));
     }
     delete=(id)=>{
@@ -51,6 +52,18 @@ load=()=>{
         window.localStorage.setItem("order",JSON.stringify(this.orders));
     }
 
+    
+    nextId=()=>{
+        let id;
+        if(this.orders[this.orders.length-1]===undefined){
+         id=1;
+        }else{
+    id=this.orders[this.orders.length-1].id+1
+        }
+         return id ;
+
+
+}
 
 
 

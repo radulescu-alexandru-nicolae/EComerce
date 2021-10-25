@@ -11,21 +11,18 @@ export default class ProductController{
             obj.forEach(e=>{
                 let prod=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
                 if(prod.name!==undefined){
+                    
                     this.products.push(prod);
+                   
                 }
             })
         }
+       
     }
-    create=(sku,name,price,weight,descriptions,image,category,create_date,stock)=>{
-        console.log('a');
-        let id;
-        if(this.products[this.products.length-1]===undefined){
-            id=0;
-        }else{
-            id=this.products[this.products.length-1].id+1;
-        }
-        let product=new Product(id,sku,name,price,weight,descriptions,image,category,create_date,stock);
-          this.products.push(product);
+    create=(product)=>{
+       
+        let produs=new Product(this.nextId(),product.sku,product.name,product.price,product.weight,product.descriptions,product.image,product.category,product.create_date,product.stock);
+          this.products.push(produs);
         window.localStorage.setItem("product",JSON.stringify(this.products));
     }
 
@@ -49,5 +46,15 @@ export default class ProductController{
             text+=this.products[i].toCard();
         }
         return text;
+    }
+
+    nextId=()=>{
+        let id;
+        if(this.products[this.products.length-1]===undefined){
+            id=0;
+        }else{
+            id=this.products[this.products.length-1].id+1;
+        }
+        return id;
     }
 }

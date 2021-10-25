@@ -5,19 +5,13 @@ constructor(){
     this.categories=[];
     this.load();    
 
-    console.log(this.categories);
 
 }
 
 create=(name,description)=>{
-    let id;
-    if(this.categories[this.categories.length-1]===undefined){
-        id=0;
-    }else{
-        id=this.categories[this.categories.length];
-    }
 
-    let categ=new Categories(id,name,description);
+
+    let categ=new Categories(this.nextId(),name,description);
     this.categories.push(categ);
     window.localStorage.setItem("categories",JSON.stringify(this.categories));
 
@@ -54,5 +48,15 @@ update=(id,name,description)=>{
         window.localStorage.removeItem("categories");
         window.localStorage.setItem("categories",JSON.stringify(this.categories));
     })
+}
+
+nextId=()=>{
+    let id;
+    if(this.categories[this.categories.length-1]===undefined){
+        id=0;
+    }else{
+        id=this.categories[this.categories.length];
+    }
+    return id;
 }
 }
