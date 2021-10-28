@@ -29,6 +29,35 @@ class Product{
       `
         return text;
     }
-   
+    toCardCart=()=>{
+        let text=`
+        <article class="product-cart">
+                            <img src="${this.image}" alt="">
+                            <div class="div-cart">
+                            <p>${this.name}</p>
+                            <p>${this.descriptions}</p>
+                        </div>
+                        <p class="price">${this.price}$</p>
+                        <p class="delete-produs">X</p>
+    
+                    </article>
+                     
+        `
+        return text;
+    }
+   toCardCartPag=()=>{
+    let text=
+    `
+    <article class="product-cart-main">
+    <img src="${this.image}" alt="">
+    <div class="div-cart">
+    <p>${this.name}</p>
+    <p>${this.descriptions}</p>
+</div>
+<p class="price">${this.price}$</p>
+</article>
+    `
+    return text;
+   }
 }
 export default Product;

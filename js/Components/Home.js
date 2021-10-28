@@ -29,27 +29,24 @@ export default class Home{
        this.asideFunction();
         this.addCos();
         this.containerProduse=document.querySelector('.container-products');
-    
         this.controlOrders = new OrdersController();
 
          this.productCategoriesController=new ProductCategoriesController();
 
          this.orderDetailsController=new OrdersDetailController();
 
-
-
          this.optionsController=new OptionsController();
 
          this.productController=new ProductController();
 
-
          this.order=order;
-
 
          this.controlOrders.create(this.order);
          this.containerProduse.addEventListener("click",this.addCos);
-         
-       
+         this.cartProducts=document.querySelector('.cart-products');
+         this.nav.addEventListener("click",this.removCos);
+
+         this.showCos();
     }
     setHeader=()=>{
         const header=document.createElement('header');
@@ -137,13 +134,23 @@ export default class Home{
         buttonLeft.appendChild(left);
         const menProduct=document.createElement('section');
         menProduct.className='men-product sectiune-product';
-
         //women start here
         const womenCategory=document.createElement('section');
         womenCategory.className='women-category primary-category';
         const womenProduct=document.createElement('section');
         womenProduct.className='women-product sectiune-product';
+      
+        const buttonLeftF=document.createElement('button');
+        buttonLeftF.className='left';
+        const buttonRightF=document.createElement('button');
+        buttonRightF.className='right';
+        const rightF=document.createElement('i');
+        rightF.className='fas fa-chevron-right right';
+        buttonRightF.appendChild(rightF);
 
+        const leftF=document.createElement('i');
+        leftF.className='fas fa-chevron-left left';
+        buttonLeftF.appendChild(leftF);
       
         this.produse.forEach(e=>{
             const produs=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
@@ -159,9 +166,9 @@ export default class Home{
                     `
                 }
           })
-          womenCategory.appendChild(buttonLeft);
+          womenCategory.appendChild(buttonLeftF);
           womenCategory.appendChild(womenProduct);
-          womenCategory.appendChild(buttonRight);
+          womenCategory.appendChild(buttonRightF);
 
         menCategory.appendChild(buttonLeft);
         menCategory.appendChild(menProduct);
@@ -174,17 +181,17 @@ export default class Home{
     }
 
     handleClickNav=(e)=>{
-        console.log(e.target);
          let obj=e.target;
          if(obj.classList.contains("homeButton")){
-            let home=new Home();
+            let home=new Home(this.customer,this.order);
          }else if(obj.classList.contains("signinButton")){
              let login=new Login();
          }else if(obj.classList.contains("registerButton")){
            let register=new Register();
 
          }else if(obj.classList.contains("cart")){
-             let cart=new Cart();
+             let cart=new Cart(this.order);
+             cart.customer=this.customer;
          }
      }
 
@@ -291,22 +298,20 @@ export default class Home{
      }
 
      addCos=(event)=>{
-
         if(event){
-     
             let obj=event.target;
-
             if(obj.classList.contains("fa-shopping-cart")){
-
                const denumire=obj.parentNode.parentNode.querySelector('.denumire');
-           
                 const produs=this.returnObject(denumire.innerHTML);
-              
                 const details=new OrderDetails
                 (this.orderDetailsController.nextId,
                     this.order.id,produs.id,produs.price,1,produs.image,produs.name);
-                
+                    console.log(this.orderDetailsController.nextId);
+
                 this.orderDetailsController.create(details);
+
+
+              
 
             }
         
@@ -314,23 +319,44 @@ export default class Home{
         
         
 
+     }     
+     showCos=()=>{
+    let arr=this.orderDetailsController.returnDetails(this.order.id);
+    let text="";
+    let cards=arr.map(e=>{
+        const product=this.productController.returnProduct(e.product_id);
+
+        text+=product.toCardCart();
+    })
+    this.cartProducts.innerHTML+=text;
+    
+    }
+    
+     removCos=(event)=>{
+         if(event){
+            let obj=event.target;
+            if(obj.classList.contains("delete-produs")){
+                this.orderDetailsController.delete(1);
+
+            }
+         }
      }
-
-
+ 
      returnObject=(element)=>{
         let gasit;
         
        this.productController.products.forEach(e=>{
         const produs=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
            if(produs.name===element){
-           
             gasit=produs;
-           
 
            }
        })
        return gasit;
 
+     }
+     returnAccount=()=>{
+         return this.customer;
      }
 
 }

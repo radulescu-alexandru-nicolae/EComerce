@@ -6,16 +6,14 @@ export default class OrdersController{
         this.orders=[];
         this.load();
         this.nextId();
-  
 
     }
     load=()=>{
-       
 
     let obj=JSON.parse(localStorage.getItem("order"));
     if(obj!==null){
         obj.forEach(e=>{
-            let ord=new Orders(e.id,e.customer_id,e.shopping_address,e.order_address,e.order_email,e.order_date,e.order_status)
+            let ord=new Orders(e.id,e.customer_id,e.ammount,e.shopping_address,e.order_address,e.order_email,e.order_date,e.order_status);
             if(ord.customer_id!==undefined){
                 this.orders.push(ord);
             }

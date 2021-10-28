@@ -1,15 +1,31 @@
+import OptionsController from "../Controllers/OptionsController.js";
+import OrderDetailsController from "../Controllers/OrderDetailsController.js";
+import ProductCategoriesController from "../Controllers/ProductCategoriesController.js";
+import ProductController from "../Controllers/ProductController.js";
 import Home from "./Home.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
 
 export default class Cart{
-    constructor(){
+    constructor(order){
         this.container=document.querySelector('.container');
         this.container.innerHTML=``;
         this.setHeader();
         this.setMain();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
+        this.cartProducts=document.querySelector('.cart-products');
+        this.order=order;
+        this.productCategoriesController=new ProductCategoriesController();
+
+        this.orderDetailsController=new OrderDetailsController();
+
+        this.optionsController=new OptionsController();
+
+        this.productController=new ProductController();
+        this.setCos();
+        this.customer;
+        
     }
 
     setHeader=()=>{
@@ -35,78 +51,7 @@ export default class Cart{
                         <i class="fas fa-arrow-down down"></i>
     
                      <section class="cart-products">
-                          <article class="product-cart">
-                                <img src="/images/buy-1.jpg" alt="">
-                                <div class="div-cart">
-                                <p>Tricou Barbati</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            </div>
-                            <p class="price">30$</p>
-                            <p class="delete-produs">X</p>
-    
-                        </article>
-                         
-                        <article class="product-cart">
-                            <img src="/images/buy-1.jpg" alt="">
-                            <div class="div-cart">
-                            <p>Tricou Barbati</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        </div>
-                        <p class="price">30$</p>
-                        <p class="delete-produs">X</p>
-    
-                    </article>
-                    <article class="product-cart">
-                        <img src="/images/buy-1.jpg" alt="">
-                        <div class="div-cart">
-                        <p>Tricou Barbati</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <p class="price">30$</p>
-                    <p class="delete-produs">X</p>
-    
-                </article>
-                <article class="product-cart">
-                    <img src="/images/buy-1.jpg" alt="">
-                    <div class="div-cart">
-                    <p>Tricou Barbati</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <p class="price">30$</p>
-                <p class="delete-produs">X</p>
-    
-            </article>
-            <article class="product-cart">
-                <img src="/images/buy-1.jpg" alt="">
-                <div class="div-cart">
-                <p>Tricou Barbati</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <p class="price">30$</p>
-            <p class="delete-produs">X</p>
-    
-        </article>
-        <article class="product-cart">
-            <img src="/images/buy-1.jpg" alt="">
-            <div class="div-cart">
-            <p>Tricou Barbati</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        </div>
-        <p class="price">30$</p>
-        <p class="delete-produs">X</p>
-    
-    </article>
-    
-                        <article class="product-cart">
-                            <img src="/images/buy-1.jpg" alt="">
-                            <div class="div-cart">
-                            <p>Tricou Barbati</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        </div>
-                        <p class="price">30$</p>
-                        <p class="delete-produs">X</p>
-    
-                    </article>
+                     
                      
                      </section>
                     </li>
@@ -124,52 +69,43 @@ export default class Cart{
         main.innerHTML=
         `
         <section class="container-product-cart">
-        <article class="product-cart-main">
-        <img src="/images/buy-1.jpg" alt="">
-        <div class="div-cart">
-        <p>Tricou Barbati</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    </div>
-    <p class="price">30$</p>
+      
 
-</article>
-<article class="product-cart-main">
-        <img src="/images/buy-1.jpg" alt="">
-        <div class="div-cart">
-        <p>Tricou Barbati</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    </div>
-    <p class="price">30$</p>
-
-</article>
-<article class="product-cart-main">
-        <img src="/images/buy-1.jpg" alt="">
-        <div class="div-cart">
-        <p>Tricou Barbati</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    </div>
-    <p class="price">30$</p>
-
-</article>
-<article class="product-cart-main">
-        <img src="/images/buy-1.jpg" alt="">
-        <div class="div-cart">
-        <p>Tricou Barbati</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    </div>
-    <p class="price">30$</p>
-
-</article>
-
-</section>
+        </section>
         
         `
         this.container.appendChild(main);
     }
+    setCos=()=>{
+        const containerProducts=document.querySelector('.container-product-cart');
+        let arr = this.orderDetailsController.returnDetails(this.order.id);
+
+            let text="";
+    let cards=arr.map(e=>{
+       
+        const product=this.productController.returnProduct(e.product_id);
+ 
+       
+        text+=product.toCardCartPag();
+
+          
+    })
+
+
+    containerProducts.innerHTML+=text;
+
+
+
+
+        
+    
+    }
+
+    
     handleClickNav=(e)=>{
          let obj=e.target;
          if(obj.classList.contains("homeButton")){
-            let home=new Home();
+            let home=new Home(this.customer,this.order);
          }else if(obj.classList.contains("signinButton")){
              let login=new Login();
          }else if(obj.classList.contains("registerButton")){

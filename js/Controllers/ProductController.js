@@ -57,4 +57,14 @@ export default class ProductController{
         }
         return id;
     }
+
+    returnProduct=(id)=>{
+        let produs;
+        this.products.forEach(e=>{
+            if(e.id===id){
+                produs=new Product(e.id,e.sku,e.name,e.price,e.weight,e.descriptions,e.image,e.category,e.create_date,e.stock);
+            }
+        })
+        return produs;
+    }
 }

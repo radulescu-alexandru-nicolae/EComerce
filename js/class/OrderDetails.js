@@ -9,8 +9,6 @@ class OrderDetails{
         this.price=price;
                this.quantity=quantity;
         // this.productController=new ProductController();       
-
-
     }
 
     // returnProduct=(id)=>{

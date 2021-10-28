@@ -5,6 +5,7 @@ main{
     row-gap: 70px;
     & .primary-category{
         max-width: 2100px;
+        
         @include flexy($dir:row,$just:space-between);
         column-gap: 10px;;
         align-items: center;
@@ -18,12 +19,20 @@ main{
         }
     }
     & .container-products{
-        width: 100%;
+        width: 80%;
         @include flexy($dir:column);
         align-items: center;
         row-gap: 40px;
+        overflow: hidden;
         & .sectiune-product{
+            width: 100%;
             max-width: 500px;
+            max-height: 400px;
+            overflow-y: scroll;
+            @include flexy($dir:row);
+            column-gap: 25px;
+            
+
         }
         & .product{
             @include flexy($dir:column);
@@ -35,6 +44,7 @@ main{
             & img{
                 width: 100%;
             }
+         
             & .product-detail{
                width:80%;
                    & .denumire{
@@ -81,10 +91,7 @@ main{
                 min-width: 300px;
                 transition:0.5s all ease-in;
 
-                &:hover{
-                    // box-shadow:5px 5px 15px 5px rgba(0,0,0,0.54);
-
-                }
+              
             }
         }
     }
