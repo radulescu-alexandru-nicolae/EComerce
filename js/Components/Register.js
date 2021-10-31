@@ -1,3 +1,5 @@
+import Customers from "../class/Customers.js";
+import CustomerController from "../Controllers/CustomerController.js";
 import Home from "./Home.js";
 import Login from "./Login.js";
 
@@ -10,6 +12,10 @@ export default class Register{
         this.setMain();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
+        this.customerController=new CustomerController();
+
+        this.createButton=document.querySelector('.create-account');
+        this.createButton.addEventListener('click',this.createAccount);
     }
     setHeader=()=>{
         const header=document.createElement('header');
@@ -145,5 +151,16 @@ export default class Register{
          }else if(obj.classList.contains("signinButton")){
              let login=new Login();
          }
+     }
+     createAccount=()=>{
+         let email=document.querySelector('.email').value;
+        let password=document.querySelector('.first-password').value;
+        let fullName=document.querySelector('.full-name').value;
+        let addres=document.querySelector('.shipping-addres').value;
+        let country=document.querySelector('.country').value;
+        let tel=document.querySelector('.phone').value;
+        let customer=new Customers(this.customerController.nextId,email,password,fullName,addres,country,tel);
+        this.customerController.create(customer);
+        let home=new Home(customer);
      }
 }

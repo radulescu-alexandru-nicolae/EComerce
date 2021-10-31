@@ -14,4 +14,3 @@ const customer=new Customers(4,'radulescu@gmail.com','qwert','Radulescu Alexandr
 const order=new Orders(4,customer.id,0,'Ion Tuculescu','Ion Tuculescu','radulescu@gmail.com','2021-01-01','In Tranist');
 const home=new Home(customer,order);
 
-

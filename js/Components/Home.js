@@ -16,7 +16,7 @@ export default class Home{
    
     constructor(customer={} ,order={}){
         this.customer=customer;
-
+        
         this.produse=JSON.parse(localStorage.getItem('product'));
         this.container=document.querySelector('.container');
         this.container.innerHTML=``;
@@ -40,7 +40,7 @@ export default class Home{
          this.productController=new ProductController();
 
          this.order=order;
-
+        console.log(order.id);
          this.controlOrders.create(this.order);
          this.containerProduse.addEventListener("click",this.addCos);
          this.cartProducts=document.querySelector('.cart-products');
@@ -68,7 +68,6 @@ export default class Home{
                     <i class="fas fa-shopping-cart"></i>
                     <p>Cart</p>
                     <i class="fas fa-arrow-down down"></i>
-
                  <section class="cart-products">
                     
                  </section>
@@ -88,7 +87,6 @@ export default class Home{
                         <i class="fas fa-chevron-right"></i>
                         <i class="fas fa-chevron-down"></i>
                     </li>
-
                 </ol>
             </section> -->
            <section class="aside-section">
@@ -296,7 +294,6 @@ export default class Home{
             }
         }
      }
-
      addCos=(event)=>{
         if(event){
             let obj=event.target;
@@ -306,19 +303,12 @@ export default class Home{
                 const details=new OrderDetails
                 (this.orderDetailsController.nextId,
                     this.order.id,produs.id,produs.price,1,produs.image,produs.name);
-                    console.log(this.orderDetailsController.nextId);
-
                 this.orderDetailsController.create(details);
-
-
-              
-
+                console.log(details);
+        
+                    // location.reload();
             }
-        
         }
-        
-        
-
      }     
      showCos=()=>{
     let arr=this.orderDetailsController.returnDetails(this.order.id);
@@ -331,17 +321,28 @@ export default class Home{
     this.cartProducts.innerHTML+=text;
     
     }
-    
      removCos=(event)=>{
          if(event){
             let obj=event.target;
             if(obj.classList.contains("delete-produs")){
-                this.orderDetailsController.delete(1);
-
+                const produs=this.returnObject(obj.parentNode.querySelector('p').textContent);
+                let orderDetails=this.returnOrderDetailsByProductId(produs.id);
+                this.orderDetailsController.delete(orderDetails.id-1);
+                // location.reload();
             }
          }
      }
- 
+     returnOrderDetailsByProductId=(id)=>{
+        let ord;
+        let orders=this.orderDetailsController.orders;
+       orders.forEach(e=>{
+            if(e.product_id===id){
+                ord=e;
+            }
+        })
+        return ord;
+    }
+
      returnObject=(element)=>{
         let gasit;
         

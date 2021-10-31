@@ -3,18 +3,18 @@ export default class OrderDetailsController{
     constructor(){
         this.orders=[];
         this.load();
+    
+       
     }
-
-
-
     create=(details)=>{
+ 
         let id=this.nextId();
-        let order=new OrderDetails(details.id,details.order_id,details.product_id,details.price,details.quantity);
+        let order=new OrderDetails(id,details.order_id,details.product_id,details.price,details.quantity);
         this.orders.push(order);
         window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
+     
 
     }
-
     load=()=>{
         let obj=JSON.parse(localStorage.getItem("OrderDetails"));
         if(obj!==null){
@@ -29,7 +29,7 @@ export default class OrderDetailsController{
 
     delete=(id)=>{
         this.orders.forEach(e=>{
-           console.log(e);
+
             if(e.id===id){
                 
                 this.orders.pop(e);
@@ -37,6 +37,7 @@ export default class OrderDetailsController{
                 window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
             }
         })
+  
     }
 
     update=(id,order_id,product_id,price,quantity)=>{
@@ -56,19 +57,17 @@ export default class OrderDetailsController{
             window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
 
     }
-
-
     nextId=()=>{
         let id;
         if(this.orders[this.orders.length-1]===undefined){
-           
-            id=0;
-        }else{
-            console.log(this.orders[this.orders.length]);
+            console.log('e');
+            id=1;
+        }else if(this.orders[this.orders.length-1]!==undefined){
+            id=this.orders[this.orders.length-1].id+1;
         }
+        console.log(id);
         return id;
     }
-
     informationOrderDetail=(id)=>{
         let details=[];
         this.orders.forEach(e=>{
@@ -97,16 +96,15 @@ export default class OrderDetailsController{
                  details.push(e);
             }
         })
-
-
         return details;
     }
-
+  
     returnOrderDetails=(name)=>{
         let orderDetails;
 this.orders.forEach(e=>{
     if(e.name===name){
       orderDetails=new OrderDetails(e);
+      
     }
 })
 return orderDetails;

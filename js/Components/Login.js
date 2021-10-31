@@ -1,3 +1,6 @@
+import Orders from "../class/Orders.js";
+import CustomerController from "../Controllers/CustomerController.js";
+import OrdersController from "../Controllers/OrdersController.js";
 import Home from "./Home.js";
 import Register from "./Register.js";
 
@@ -9,7 +12,15 @@ export default class Login{
         this.setMain();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
+        this.customerController=new CustomerController();
+        this.loginButton=document.querySelector('.login-button');
+        this.customers=this.customerController.customers;
+        this.loginButton.addEventListener('click',this.login);
+        this.orderController=new OrdersController();
+        this.orders=this.orderController.orders;
+        this.order;
     }
+
 
 
     setHeader=()=>{
@@ -132,9 +143,44 @@ export default class Login{
         `
         this.container.appendChild(main);
     }
+    login=()=>{
+        let email=document.querySelector('.email').value;
+        let password=document.querySelector('.first-password').value;
+        let customer=this.returnCustomerByEmail(email);
+        let order=this.checkOrder(customer);
+        console.log(order);
+        if(customer!==undefined){
+            if(customer.password===password){
+                let home=new Home(customer,order);
+            }else{
+                console.log('false');
+            }
+        }
+    }
 
+   
+  checkOrder=(customer)=>{
+      let order;
+    this.orders.forEach(e=>{
+        if(e.customer_id===customer.id){
+            order=e;
+        }else{
+            order=new Orders(this.orderController.nextId,customer.id,0,customer.shipping_addres,customer.shipping_addres,customer.email,'2021-01-01','In Transit');
+        }
+    })
+    return order;
+  }
+    returnCustomerByEmail=(email)=>{
+        let customer;
+        this.customers.forEach(e=>{
+            if(e.email===email){
+                customer=e;
+            }
+        })
+        return customer;
+    }
     handleClickNav=(e)=>{
-        //  this.removeChild();
+       
          let obj=e.target;
          if(obj.classList.contains("registerButton")){
              let reg= new Register();

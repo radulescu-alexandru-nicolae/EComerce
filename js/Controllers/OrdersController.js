@@ -49,20 +49,17 @@ export default class OrdersController{
         window.localStorage.removeItem("order");
         window.localStorage.setItem("order",JSON.stringify(this.orders));
     }
-
-    
     nextId=()=>{
         let id;
         if(this.orders[this.orders.length-1]===undefined){
          id=1;
+         console.log('b');
         }else{
-    id=this.orders[this.orders.length-1].id+1
+          id=this.orders[this.orders.length-1].id+1;
+            console.log('a');
         }
-         return id ;
-
-
+        console.log(id);
+         return id;
 }
-
-
 
 }

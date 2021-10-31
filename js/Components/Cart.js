@@ -90,17 +90,9 @@ export default class Cart{
 
           
     })
-
-
     containerProducts.innerHTML+=text;
 
-
-
-
-        
-    
     }
-
     
     handleClickNav=(e)=>{
          let obj=e.target;
