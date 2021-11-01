@@ -40,7 +40,7 @@ export default class Home{
          this.productController=new ProductController();
 
          this.order=order;
-        console.log(order.id);
+      
          this.controlOrders.create(this.order);
          this.containerProduse.addEventListener("click",this.addCos);
          this.cartProducts=document.querySelector('.cart-products');
@@ -327,7 +327,7 @@ export default class Home{
             if(obj.classList.contains("delete-produs")){
                 const produs=this.returnObject(obj.parentNode.querySelector('p').textContent);
                 let orderDetails=this.returnOrderDetailsByProductId(produs.id);
-                this.orderDetailsController.delete(orderDetails.id-1);
+                this.orderDetailsController.delete(orderDetails.id);
                 // location.reload();
             }
          }

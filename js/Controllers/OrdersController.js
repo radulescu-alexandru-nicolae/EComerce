@@ -53,12 +53,9 @@ export default class OrdersController{
         let id;
         if(this.orders[this.orders.length-1]===undefined){
          id=1;
-         console.log('b');
         }else{
           id=this.orders[this.orders.length-1].id+1;
-            console.log('a');
         }
-        console.log(id);
          return id;
 }
 
