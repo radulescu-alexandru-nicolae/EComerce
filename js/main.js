@@ -11,6 +11,6 @@ import OrderDetailsController from "./Controllers/OrderDetailsController.js";
 
 
 const customer=new Customers(4,'radulescu@gmail.com','qwert','Radulescu Alexandru','Ion Tuculescu Nr4','Romania','93777');
-const order=new Orders(4,customer.id,0,'Ion Tuculescu','Ion Tuculescu','radulescu@gmail.com','2021-01-01','In Tranist');
+const order=new Orders(1,customer.id,0,'Ion Tuculescu','Ion Tuculescu','radulescu@gmail.com','2021-01-01','In Tranist');
 const home=new Home(customer,order);
 

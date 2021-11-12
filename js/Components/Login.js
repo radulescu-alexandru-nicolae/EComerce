@@ -20,9 +20,6 @@ export default class Login{
         this.orders=this.orderController.orders;
         this.order;
     }
-
-
-
     setHeader=()=>{
         const header=document.createElement('header');
         header.innerHTML=`
@@ -128,7 +125,6 @@ export default class Login{
 
         this.container.appendChild(header);
     }
-
     setMain=()=>{
         const main=document.createElement('main');
         main.innerHTML=`
@@ -157,17 +153,22 @@ export default class Login{
             }
         }
     }
-
-   
   checkOrder=(customer)=>{
       let order;
+      
     this.orders.forEach(e=>{
         if(e.customer_id===customer.id){
             order=e;
-        }else{
-            order=new Orders(this.orderController.nextId,customer.id,0,customer.shipping_addres,customer.shipping_addres,customer.email,'2021-01-01','In Transit');
+            console.log('a');
+            
         }
-    })
+    });
+    if(order===undefined){
+            order=new Orders(this.orderController.nextId,customer.id,0,customer.shipping_addres,customer.shipping_addres,customer.email,'2021-01-01','In Transit');
+    }
+    console.log(order);
+ 
+    
     return order;
   }
     returnCustomerByEmail=(email)=>{

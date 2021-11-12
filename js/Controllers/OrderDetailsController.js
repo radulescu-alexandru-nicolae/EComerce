@@ -3,17 +3,12 @@ export default class OrderDetailsController{
     constructor(){
         this.orders=[];
         this.load();
-    
-       
     }
     create=(details)=>{
- 
         let id=this.nextId();
         let order=new OrderDetails(id,details.order_id,details.product_id,details.price,details.quantity);
         this.orders.push(order);
         window.localStorage.setItem("OrderDetails",JSON.stringify(this.orders));
-     
-
     }
     load=()=>{
         let obj=JSON.parse(localStorage.getItem("OrderDetails"));
@@ -107,6 +102,7 @@ this.orders.forEach(e=>{
       
     }
 })
+console.log(orderDetails);
 return orderDetails;
     }
 }

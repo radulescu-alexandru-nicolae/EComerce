@@ -22,8 +22,30 @@ export default class OrdersController{
 }
     create=(order)=>{
                 let orderObj=new Orders(this.nextId(),order.customer_id,order.ammount,order.shopping_address,order.order_address,order.order_email,order.order_date,order.order_status);
-                this.orders.push(orderObj);
-                window.localStorage.setItem("order",JSON.stringify(this.orders));
+               
+                if(this.checkOrder(order)===false){
+                    this.orders.push(orderObj);
+                    window.localStorage.setItem("order",JSON.stringify(this.orders));
+                }
+    }
+    checkOrder=(order)=>{
+        let obj=JSON.parse(localStorage.getItem("order"));
+        let ok=0;
+        if(obj!==null){
+            obj.forEach(e=>{
+                let ord=new Orders(e.id,e.customer_id,e.ammount,e.shopping_address,e.order_address,e.order_email,e.order_date,e.order_status);
+                if(ord.customer_id===order.customer_id){
+                    ok=1;
+                }
+            })
+        }else{
+            ok=0;
+        }
+        if(ok===1){
+            return true;
+        }else{
+            return false;
+        }
     }
     delete=(id)=>{
         this.orders.forEach(e=>{
@@ -56,6 +78,7 @@ export default class OrdersController{
         }else{
           id=this.orders[this.orders.length-1].id+1;
         }
+      
          return id;
 }
 
